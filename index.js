@@ -1,6 +1,7 @@
 // Este es el punto de entrada de tu aplicacion
 import './configurafirebase/configfirebase.js';
 import { pageAbout } from './pages/about/about.js';
+import { recover } from './pages/recover/recover-password.js';
 import { pageLogin } from './pages/login/login.js';
 import { feed } from './pages/feed/feed.js';
 import { createLogin } from './pages/register/page-register.js';
@@ -13,9 +14,13 @@ const init = () => {
   switch (window.location.hash) {
     case '#about':
       main.appendChild(pageAbout());
+      console.log(pageAbout().nodeType);
       break;
     case '#createLogin':
       main.appendChild(createLogin());
+      break;
+    case '#recover':
+      main.appendChild(recover());
       break;
     case '#feed': {
       const user = getPersistedUser();
@@ -30,14 +35,12 @@ const init = () => {
       main.appendChild(pageLogin());
   }
 };
-
 const eventHash = () => {
   window.addEventListener('hashchange', () => {
     main.innerHTML = '';
     init();
   });
 };
-
 window.addEventListener('load', () => {
   init();
   eventHash();
