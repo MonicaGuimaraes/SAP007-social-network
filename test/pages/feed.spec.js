@@ -3,7 +3,12 @@
 */
 import { feed } from '../../src/pages/feed/feed.js';
 import {
-  createPost, getAllPosts, authLogOut, likePost, removeLikePost,
+  createPost,
+  getAllPosts,
+  authLogOut,
+  removePost,
+  likePost,
+  removeLikePost,
 } from '../../src/pages/feed/firestore-functions.js';
 import {
   postElement,
@@ -136,6 +141,62 @@ describe('AuthLogOut', () => {
     btnLogOut.dispatchEvent(new Event('click'));
     expect(authLogOut).toHaveBeenCalled();
   });
+});
+
+describe('postElement com user logado igual user do post', () => {
+  it('PostElement() Menu de exclusão e edição aparecem no timelinepost se o user for dono do post', () => {
+    const timelinePost = postElement(posts[1].data(), user, posts[1].id);
+    const navRemoveModifie = timelinePost.querySelector('.nav-remove-modify');
+    expect(navRemoveModifie.childNodes).toHaveLength(5);
+  });
+
+  it('PostElement() Menu de exclusão e edição não aparecem se o user não for dono do post', () => {
+    const timelinePost = postElement(posts[0].data(), user, posts[0].id);
+    const navRemoveModifie = timelinePost.querySelector('.nav-remove-modify');
+    expect(navRemoveModifie.childNodes).toHaveLength(1);
+  });
+});
+
+describe('removepost()', () => {
+  const timelinePost = postElement(posts[1].data(), user, posts[1].id);
+  const btnMenu = timelinePost.querySelector('.meatball-menu');
+  const btnRemove = timelinePost.querySelector('.remove');
+  const btnDeletePost = timelinePost.querySelector('.confirm-delete');
+  const menuEditRemove = timelinePost.querySelector('.menu-edit-remove');
+  const modalDelete = timelinePost.querySelector('.modal-delete');
+  const btnCancelDeletePost = timelinePost.querySelector('.close-delete');
+
+  it('Quando clicar no botão MeatBall abre as configurações e aprece a opção de exclusão, quando clicado exclui o postElement', async () => {
+    removePost.mockResolvedValueOnce();
+    btnMenu.dispatchEvent(new Event('click'));
+    expect(menuEditRemove.classList.contains('active')).toBe(true);
+    btnRemove.dispatchEvent(new Event('click'));
+    expect(modalDelete.style.display).toBe('block');
+    btnDeletePost.dispatchEvent(new Event('click'));
+    expect(removePost).toHaveBeenCalledTimes(1);
+    await new Promise(process.nextTick);
+    expect(timelinePost.innerHTML).toBe('');
+  });
+
+  it('Quando clicar no botão MeatBall abre as configurações e aprece a opção de cancelar exclusão, quando clicado fecha o ModalDelete', () => {
+    btnMenu.dispatchEvent(new Event('click'));
+    expect(menuEditRemove.classList.contains('active')).toBe(true);
+    btnRemove.dispatchEvent(new Event('click'));
+    expect(modalDelete.style.display).toBe('block');
+    btnCancelDeletePost.dispatchEvent(new Event('click'));
+    expect(modalDelete.style.display).toBe('none');
+  });
+
+  // it('ddd', async () => {
+  //   getAllPosts.mockResolvedValueOnce();
+  //   const timeline = feed(user);
+  //   const warningsSection = timeline.querySelector('#warnings-feed');
+  //   removePost.mockRejectedValueOnce({ code: 'nada' });
+  //   btnDeletePost.dispatchEvent(new Event('click'));
+  //   expect(removePost).toHaveBeenCalledTimes(2);
+  //   await new Promise(process.nextTick);
+  //   expect(warningsSection.classList.contains('active')).toBe(true);
+  // });
 });
 
 describe('likePost', () => {

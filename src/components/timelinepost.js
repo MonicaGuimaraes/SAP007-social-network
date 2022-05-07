@@ -4,6 +4,8 @@ import {
 
 import { createComments } from './comments.js';
 
+import { generalErrors, toggleMenu } from './functions-components.js';
+
 export function postElement(post, user, postId) {
   let numberLikes = post.like.length;
   const date = new Date(post.day.seconds * 1000);
@@ -42,6 +44,11 @@ export function postElement(post, user, postId) {
 
   const btnLike = timelinePost.querySelector('.post-like');
   const paragraphLikeValue = timelinePost.querySelector('.value-like');
+  const warningsSection = document.querySelector('#warnings-feed');
+  const warningPost = document.querySelector('#warnings-feed-post');
+  const warningEmptyPost = document.querySelector('#warnings-feed-empty-post');
+  const warningGeneral = document.querySelector('#warnings-feed-general');
+
   let userLike = post.like.filter((people) => people === user.uid);
 
   if (userLike.length !== 0) {
@@ -56,13 +63,7 @@ export function postElement(post, user, postId) {
         paragraphLikeValue.textContent = `${numberLikes}`;
         timelinePost.querySelector('.btn-like-post').src = './img/iconeLikePreenchido.png';
       }).catch(() => {
-        document.querySelector('#warnings-feed').style.display = 'block';
-        document.querySelector('#warnings-feed-message').textContent = 'Não estamos conseguindo entrar em contato com a nuvem T-T.';
-
-        setTimeout(() => {
-          document.querySelector('#warnings-feed').style.display = 'none';
-          document.querySelector('#warnings-feed-message').textContent = '';
-        }, 4000);
+        generalErrors(warningGeneral, warningsSection);
       });
     } else {
       removeLikePost(postId, user.uid).then(() => {
@@ -71,13 +72,7 @@ export function postElement(post, user, postId) {
         paragraphLikeValue.textContent = `${numberLikes}`;
         timelinePost.querySelector('.btn-like-post').src = './img/iconeLike.png';
       }).catch(() => {
-        document.querySelector('#warnings-feed').style.display = 'block';
-        document.querySelector('#warnings-feed-message').textContent = 'Não estamos conseguindo entrar em contato com a nuvem T-T.';
-
-        setTimeout(() => {
-          document.querySelector('#warnings-feed').style.display = 'none';
-          document.querySelector('#warnings-feed-message').textContent = '';
-        }, 4000);
+        generalErrors(warningGeneral, warningsSection);
       });
     }
   });
@@ -90,12 +85,12 @@ export function postElement(post, user, postId) {
   const inputComment = timelinePost.querySelector('.comment-input-value');
 
   commentPost.addEventListener('click', () => {
-    formComment.classList.toggle('active');
+    toggleMenu(formComment);
   });
 
   btnCancelComment.addEventListener('click', (e) => {
     e.preventDefault();
-    formComment.classList.toggle('active');
+    toggleMenu(formComment);
     inputComment.value = '';
   });
 
@@ -109,19 +104,17 @@ export function postElement(post, user, postId) {
     comment.day = new Date();
     comment.day.seconds = comment.day.getTime() / 1000;
 
-    createCommentPost(postId, comment).then(() => {
-      formComment.classList.toggle('active');
-      inputComment.value = '';
-      divLikePost.appendChild(createComments(comment, user, postId));
-    }).catch(() => {
-      document.querySelector('#warnings-feed').style.display = 'block';
-      document.querySelector('#warnings-feed-message').textContent = 'Infelizmente não estamos conseguindo compartilhar a sua mensagem...';
-
-      setTimeout(() => {
-        document.querySelector('#warnings-feed').style.display = 'none';
-        document.querySelector('#warnings-feed-message').textContent = '';
-      }, 4000);
-    });
+    if (post.message.trim().length !== 0 && post.message !== ' ' && post.message !== null && post.message !== false) {
+      createCommentPost(postId, comment).then(() => {
+        toggleMenu(formComment);
+        inputComment.value = '';
+        divLikePost.appendChild(createComments(comment, user, postId));
+      }).catch(() => {
+        generalErrors(warningPost, warningsSection);
+      });
+    } else {
+      generalErrors(warningEmptyPost, warningsSection);
+    }
   });
 
   if (post.comment.length !== 0) {
@@ -171,23 +164,23 @@ export function postElement(post, user, postId) {
     </div>  `;
 
     const btnRemove = timelinePost.querySelector('.remove');
+    const btnDeletePost = timelinePost.querySelector('.confirm-delete');
+    const btnCancelDeletePost = timelinePost.querySelector('.close-delete');
     const btnEdit = timelinePost.querySelector('.modify');
     const btnCancelEdit = timelinePost.querySelector('.close-modify');
     const btnConfirmEdit = timelinePost.querySelector('.confirm-modify');
     const inputModify = timelinePost.querySelector('.modify-input-value');
     const btnMenu = timelinePost.querySelector('.meatball-menu');
     const menuEditRemove = timelinePost.querySelector('.menu-edit-remove');
-    const btnDeletePost = timelinePost.querySelector('.confirm-delete');
-    const btnCancelDeletePost = timelinePost.querySelector('.close-delete');
 
     btnMenu.addEventListener('click', () => {
-      menuEditRemove.classList.toggle('active');
+      toggleMenu(menuEditRemove);
     });
 
     btnEdit.addEventListener('click', () => {
       modifyForm.style.display = 'block';
       inputModify.value = timelinePost.querySelector('#post-text').textContent;
-      menuEditRemove.classList.toggle('active');
+      toggleMenu(menuEditRemove);
     });
 
     btnCancelEdit.addEventListener('click', (e) => {
@@ -205,7 +198,7 @@ export function postElement(post, user, postId) {
             inputModify.value = '';
             modifyForm.style.display = 'none';
             timelinePost.querySelector('#post-modified').textContent = 'Editado';
-          }).catch((error) => console.log(error));
+          }).catch(() => generalErrors(warningGeneral, warningsSection));
       } else {
         inputModify.value = '';
         modifyForm.style.display = 'none';
@@ -214,13 +207,13 @@ export function postElement(post, user, postId) {
 
     btnRemove.addEventListener('click', () => {
       modalDelete.style.display = 'block';
-      menuEditRemove.classList.toggle('active');
+      toggleMenu(menuEditRemove);
     });
     btnDeletePost.addEventListener('click', (e) => {
       e.preventDefault();
       removePost(postId).then(() => {
         timelinePost.innerHTML = '';
-      }).catch((error) => console.log(error));
+      }).catch(() => generalErrors(warningGeneral, warningsSection));
     });
 
     btnCancelDeletePost.addEventListener('click', (e) => {
