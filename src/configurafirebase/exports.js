@@ -15,4 +15,10 @@ export {
 export {
   getAuth,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+  sendPasswordResetEmail,
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; // eslint-disable-line
