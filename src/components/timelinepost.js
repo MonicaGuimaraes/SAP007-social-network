@@ -56,7 +56,7 @@ export function postElement(post, user, postId) {
   }
 
   btnLike.addEventListener('click', () => {
-    if (userLike.length === 0 ||) {
+    if (userLike.length === 0) {
       likePost(postId, user.uid).then(() => {
         userLike.push(user.uid);
         numberLikes += 1;

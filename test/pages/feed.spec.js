@@ -7,6 +7,8 @@ import {
   getAllPosts,
   authLogOut,
   removePost,
+  likePost,
+  removeLikePost,
 } from '../../src/pages/feed/firestore-functions.js';
 import {
   postElement,
@@ -61,13 +63,10 @@ const posts = [
   },
 ];
 
-console.log(posts[1].data().like.length);
-
 describe('feed e getAllPosts', () => {
   it('feed(user) deve ser um Node.ELEMENT_NODE (1) e getAllPosts deve ser chamada', () => {
     getAllPosts.mockRejectedValueOnce();
     expect(feed(user).nodeType).toBe(1);
-    console.log()
     expect(getAllPosts).toHaveBeenCalled();
   });
 });
@@ -200,6 +199,27 @@ describe('removepost()', () => {
   // });
 });
 
-describe('', () => {
-  
+describe('likePost', () => {
+  it('Deverá trazer um like a publicação', async () => {
+    const timelinePost = postElement(posts[0].data(), user, posts[0].id);
+    const btnLike = timelinePost.querySelector('.post-like');
+    const valueLike = timelinePost.querySelector('.value-like');
+    likePost.mockResolvedValueOnce();
+    btnLike.dispatchEvent(new Event('click'));
+    await new Promise(process.nextTick);
+    expect(likePost).toHaveBeenCalled();
+    expect(valueLike.textContent).toBe('1');
+  });
+});
+describe('removeLikePost', () => {
+  it('Deverá remover um like da publicação', async () => {
+    await new Promise(process.nextTick);
+    const timelinePost = postElement(posts[1].data(), user1, posts[1].id);
+    const btnLike = timelinePost.querySelector('.post-like');
+    const valueLike = timelinePost.querySelector('.value-like');
+    removeLikePost.mockResolvedValueOnce();
+    btnLike.dispatchEvent(new Event('click'));
+    expect(removeLikePost).toHaveBeenCalledTimes(1);
+    expect(valueLike.textContent).toBe('1');
+  });
 });
