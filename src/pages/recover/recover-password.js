@@ -4,29 +4,30 @@ import { errorHandlingGeneral } from '../../components/errorHandling.js';
 
 export const recover = () => {
   const recoverPasswordPage = document.createElement('div');
-  recoverPasswordPage.setAttribute('class', 'box-recover-password flex-direction');
+  recoverPasswordPage.setAttribute('class', 'box-recover-password flex');
   recoverPasswordPage.innerHTML = `
   <section class="header-page-recover">
+    <figure class="box-slogan-desktop-recover">
+      <img src="./img/imgLogoDesktop.png" alt="Logotype" class="logo-desktop-recover">
+    </figure> 
+  </section>
+  <section class="recover-contents">
     <figure class="box-slogan-page-login">
       <img src="./img/kfandom.svg" alt="Logotype" class="logo-icon-page-login">
     </figure>  
-  </section>
-  <figure class="box-slogan-desktop">
-    <img src="./img/imgLogoDesktop.png" alt="Logotype" class="logo-desktop">
-  </figure>
-  <section class="slogan-desktop">
-    <h1>A rede da comunidade K-POP</h1>
-  </section>   
-  <section class="body-page-recover text-center">
-    <h1 class="tittle-page-recover">Esqueci minha senha!</h1>
-    <form method="post" class = "form-recover">
-      <h2>Uma nova senha será enviada ao seu email de cadastro.</h2>
+    <section class="body-page-recover text-center">
+      <h1 class="tittle-page-recover">Esqueci minha senha!</h1>
+      <form method="post" class = "form-recover">
+        <h2 class="title-recover">
+        Enviaremos um e-mail para a recuperação de senha.
+        Digite seu e-mail cadastrado:</h2>
         <input type="email" placeholder="seu@email.com" class="login-area font-size" id="email-recover" name="email-area" requered>
         <p class="error" id="input-field"></p>
-    </form>
-    <section class="btns-recover">
-      <a href="#login" class="btn-cancel-recover" id="btn-cancel-recover">Cancelar</a>
-      <button type="submit" class="btn-confirm-recover" id="btn-confirm-recover">Confirmar</button>
+      </form>
+      <section class="btns-recover">
+        <a href="#login" class="btn-cancel-recover" id="btn-cancel-recover">Cancelar</a>
+        <button type="submit" class="btn-confirm-recover" id="btn-confirm-recover">Confirmar</button>
+      </section>
     </section>
   </section>
   `;

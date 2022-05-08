@@ -1,23 +1,42 @@
-.tittle-page-recover{
+.box-recover-password {
+  flex-direction: column;
+}
+
+.logo-desktop-recover {
+  display: none;
+}
+
+.tittle-page-recover {
   margin-bottom: 5%;
   font-size: 30px;
   color: var(--black);
 }
-.form-recover{
-  background-color: #FFF338;
+
+.form-recover {
+  background-color: var(--mustard);
   border-radius: 10px;
   text-align: center;
-  width: auto;
-  height: 20vh;
+  width: 70%;
+  margin: 0 15%;
+  height: auto;
+  padding: 5% 0;
 }
-.btns-recover{
+
+.btns-recover {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 10%;
 }
-.btn-cancel-recover, .btn-confirm-recover{
+
+.title-recover {
+  margin: 0 4%;
+}
+
+.btn-cancel-recover,
+.btn-confirm-recover {
   background: var(--lilac);
   margin-top: 20px;
+  margin-bottom: 20px;
   border-radius: 10px;
   padding: 12px 12px 12px 12px;
   width: 100px;
@@ -26,6 +45,36 @@
   font-size: 16px;
   cursor: pointer;
 }
+
 .btn-area:hover {
   text-decoration: underline;
+}
+
+@media(min-width: 992px) {
+  .box-recover-password {
+    flex-direction: row;
+    height: 100%;
+    height: 100vh;
+  }
+
+  .box-slogan-desktop-recover {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .logo-desktop-recover {
+    display: block;
+    width: 100%;
+  }
+
+  .header-page-recover {
+    width: 48%;
+    overflow: hidden;
+  }
+
+  .recover-contents {
+    width: 52%;
+    height: 100vh;
+    overflow-x: auto;
+  }
 }

@@ -11,12 +11,13 @@ import {
   removeLikePost,
   editPost,
   createCommentPost,
+  removeCommentPost,
 } from '../../src/pages/feed/firestore-functions.js';
 import {
   postElement,
 } from '../../src/components/timelinepost.js';
 // import { generalErrors } from '../../src/components/functions-components.js';
-// import { createComments } from '../../src/components/comments.js';
+import { createComments } from '../../src/components/comments.js';
 
 jest.mock('../../src/configurafirebase/exports.js');
 jest.mock('../../src/pages/feed/firestore-functions.js');
@@ -59,8 +60,14 @@ const posts = [
         name: user.displayName,
         imgProfile: user.photoURL,
         like: [user1.uid],
-        comment: [],
         day: { second: new Date().getTime() / 1000 },
+        comment: [{
+          name: user1.displayName,
+          userUid: user1.uid,
+          imgProfile: user1.photoURL,
+          message: 'testando comentário',
+          day: { second: new Date().getTime() / 1000 },
+        }],
       };
     },
   },
@@ -234,34 +241,36 @@ describe('createCommentPost(idPost, objComment)', () => {
   const formComment = timelinePost.querySelector('.form-comment');
   const commentArea = timelinePost.querySelector('.comment-input-value');
   const btnConfirm = timelinePost.querySelector('.confirm-comment');
+  const warningsSection = timelinePost.querySelector('.warnings-feed');
   // const btnClose = timelinePost.querySelector('.close-comment');
 
-  it('createCommentPost deve ter sido chamada pelo menos uma vez, deve ter um objeto na chamada que contenha {message: "testando", ...', () => {
+  it('createCommentPost deve ter sido chamada pelo menos uma vez, deve ter um objeto na chamada que contenha {message: "testando", ...', async () => {
     btnComment.dispatchEvent(new Event('click'));
     expect(formComment.classList.contains('active')).toBe(true);
     commentArea.value = '';
     btnConfirm.dispatchEvent(new Event('click'));
     expect(createCommentPost).toHaveBeenCalledTimes(0);
-    expect(formComment.classList.contains('active')).toBe(false);
   });
 
-//   it('create(post) não deve ser chamado', () => {
-//     input.value = '';
-//     btnPost.dispatchEvent(new Event('click'));
-//     expect(createPost.mock.calls).toHaveLength(1);
-//   });
-//   it('CreatePost é chamada e entra em catch adicionando a class active para warningsSection e
-// depois de 4 seg a class não existe mais', async () => {
-//     createPost.mockRejectedValueOnce({ code: 'nada' });
-//     input.value = 'testando';
-//     btnPost.dispatchEvent(new Event('click'));
-//     expect(warningsSection.classList.contains('active')).toBe(true);
-//     expect(warningPost.classList.contains('active')).toBe(true);
-//     await new Promise(process.nextTick);
-//     expect(createPost).toHaveBeenCalledTimes(2);
-//     expect(warningsSection.classList.contains('active')).toBe(false);
-//     expect(warningPost.classList.contains('active')).toBe(false);
+  it('createCommentPost será chamado com um objeto que contém [ "oi", { message: "testando comentário", ...}]', () => {
+    createCommentPost.mockResolvedValueOnce();
+    commentArea.value = 'testando comentário';
+    btnConfirm.dispatchEvent(new Event('click'));
+    expect(createCommentPost).toHaveBeenCalledTimes(1);
+    expect(createCommentPost.mock.calls).toMatchObject([[posts[1].id, { message: 'testando comentário' }]]);
+  });
+
+  it('createCommentPost retornará no catch e deverá exibir uma mensagem na tela', async () => {
+    createCommentPost.mockRejectedValueOnce({ code: 'nada' });
+    commentArea.value = 'testando comentário';
+    btnConfirm.dispatchEvent(new Event('click'));
+    expect(warningsSection.classList.contains('active')).toBe(true);
+    await new Promise(process.nextTick);
+    expect(createCommentPost).toHaveBeenCalledTimes(2);
+    expect(warningsSection.classList.contains('active')).toBe(false);
+  });
 });
+
 describe('editPost()', () => {
   const timelinePost = postElement(posts[1].data(), user, posts[1].id);
   const btnEdit = timelinePost.querySelector('.modify');
@@ -304,5 +313,35 @@ describe('editPost()', () => {
     btnConfirmEdit.dispatchEvent(new Event('click'));
     expect(modifyForm.style.display).toBe('none');
     expect(paragraphPost.textContent).toBe('testando');
+  });
+});
+
+describe('removeCommentPost()', () => {
+  const timelineComment = createComments(posts[1].data().comment[0], user1, posts[1].id);
+  const navComment = timelineComment.querySelector('.nav-remove-comment');
+  const btnCancelRemoveComment = timelineComment.querySelector('.close-remove');
+  const btnConfirmRemoveComment = timelineComment.querySelector('.confirm-remove');
+  const removeComment = timelineComment.querySelector('.remove-comment');
+  const modalDelete = timelineComment.querySelector('.modal-delete');
+
+  it('A área do botão deletar deve aparecer se o user for o mesmo que publicou o comentário', () => {
+    expect(navComment.childNodes).toHaveLength(2);
+  });
+
+  it('Modal Delete aparecer ao apertar removeComment e o comentário fica vazio ao apertar btnConfirmRemoveComment', async () => {
+    removeCommentPost.mockResolvedValueOnce();
+    removeComment.dispatchEvent(new Event('click'));
+    expect(modalDelete.style.display).toBe('block');
+    btnConfirmRemoveComment.dispatchEvent(new Event('click'));
+    expect(removeCommentPost).toHaveBeenCalledTimes(1);
+    await new Promise(process.nextTick);
+    expect(timelineComment.innerHTML).toBe('');
+  });
+
+  it('Modal Delete aparecer ao apertar removeComment e ao apertar btnCancelRemoveComment fecha o modal', () => {
+    removeComment.dispatchEvent(new Event('click'));
+    expect(modalDelete.style.display).toBe('block');
+    btnCancelRemoveComment.dispatchEvent(new Event('click'));
+    expect(modalDelete.style.display).toBe('none');
   });
 });

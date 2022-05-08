@@ -1,10 +1,16 @@
 import { removeCommentPost } from '../pages/feed/firestore-functions.js';
+import { generalErrors } from './functions-components.js';
 
 export function createComments(comment, user, idPost) {
   const dateComment = new Date(comment.day.seconds * 1000);
   const timelineComment = document.createElement('div');
   timelineComment.setAttribute('class', 'box-comment flex column');
   timelineComment.innerHTML = `
+    <section class="warnings-feed" id="warnings-feed">
+      <p class="warnings-feed-general" id="warnings-feed-general">
+      Aconteceu um probleminha... Mianamnida!! "o" Tente novamente mais tarde!
+      </p>
+    </section>
     <div class="informations-user flex">
       <div class="photo-name-post flex">
         <figure class="section-figure-comment flex"><img src="./img/line.svg" class="section-figure-comment-img"></figure>
@@ -22,6 +28,9 @@ export function createComments(comment, user, idPost) {
     </div>`;
 
   const navComment = timelineComment.querySelector('.nav-remove-comment');
+  const warningsSection = timelineComment.querySelector('.warnings-feed');
+  const warningGeneral = timelineComment.querySelector('.warnings-feed-general');
+
   if (user.uid === comment.userUid) {
     const buttonDelete = document.createElement('button');
     buttonDelete.setAttribute('class', 'btn-config remove-comment');
@@ -48,7 +57,7 @@ export function createComments(comment, user, idPost) {
     btnConfirmRemoveComment.addEventListener('click', () => {
       removeCommentPost(idPost, comment).then(() => {
         timelineComment.innerHTML = '';
-      }).catch((error) => console.log(error));
+      }).catch(() => generalErrors(warningGeneral, warningsSection));
     });
 
     btnCancelRemoveComment.addEventListener('click', () => {
