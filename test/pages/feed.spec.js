@@ -3,12 +3,13 @@
 */
 import { feed } from '../../src/pages/feed/feed.js';
 import {
-  createPost, getAllPosts, authLogOut, likePost, removeLikePost,
+  createPost, getAllPosts, authLogOut, likePost, removeLikePost, createCommentPost,
 } from '../../src/pages/feed/firestore-functions.js';
 import {
   postElement,
 } from '../../src/components/timelinepost.js';
 // import { generalErrors } from '../../src/components/functions-components.js';
+// import { createComments } from '../../src/components/comments.js';
 
 jest.mock('../../src/configurafirebase/exports.js');
 jest.mock('../../src/pages/feed/firestore-functions.js');
@@ -161,4 +162,40 @@ describe('removeLikePost', () => {
     expect(removeLikePost).toHaveBeenCalledTimes(1);
     expect(valueLike.textContent).toBe('1');
   });
+});
+
+describe('createCommentPost(idPost, objComment)', () => {
+  const timelinePost = postElement(posts[1].data(), user1, posts[1].id);
+  const btnComment = timelinePost.querySelector('.post-comment');
+  const formComment = timelinePost.querySelector('.form-comment');
+  const commentArea = timelinePost.querySelector('.comment-input-value');
+  const btnConfirm = timelinePost.querySelector('.confirm-comment');
+  // const btnClose = timelinePost.querySelector('.close-comment');
+
+  it('createCommentPost deve ter sido chamada pelo menos uma vez, deve ter um objeto na chamada que contenha {message: "testando", ...', () => {
+    btnComment.dispatchEvent(new Event('click'));
+    expect(formComment.classList.contains('active')).toBe(true);
+    commentArea.value = '';
+    btnConfirm.dispatchEvent(new Event('click'));
+    expect(createCommentPost).toHaveBeenCalledTimes(0);
+    expect(formComment.classList.contains('active')).toBe(false);
+  });
+
+//   it('create(post) não deve ser chamado', () => {
+//     input.value = '';
+//     btnPost.dispatchEvent(new Event('click'));
+//     expect(createPost.mock.calls).toHaveLength(1);
+//   });
+//   it('CreatePost é chamada e entra em catch adicionando a class active para warningsSection e
+// depois de 4 seg a class não existe mais', async () => {
+//     createPost.mockRejectedValueOnce({ code: 'nada' });
+//     input.value = 'testando';
+//     btnPost.dispatchEvent(new Event('click'));
+//     expect(warningsSection.classList.contains('active')).toBe(true);
+//     expect(warningPost.classList.contains('active')).toBe(true);
+//     await new Promise(process.nextTick);
+//     expect(createPost).toHaveBeenCalledTimes(2);
+//     expect(warningsSection.classList.contains('active')).toBe(false);
+//     expect(warningPost.classList.contains('active')).toBe(false);
+//   });
 });
