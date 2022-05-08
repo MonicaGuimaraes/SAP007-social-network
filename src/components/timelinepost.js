@@ -12,6 +12,17 @@ export function postElement(post, user, postId) {
   const timelinePost = document.createElement('div');
   timelinePost.setAttribute('class', 'box-post flex column');
   timelinePost.innerHTML = `
+    <section class="warnings-feed" id="warnings-feed">
+      <p class="warnings-feed-general" id="warnings-feed-general">
+      Aconteceu um probleminha... Mianamnida!! "o" Tente novamente mais tarde!
+      </p>
+      <p class="warnings-feed-post" id="warnings-feed-post">
+      Infelizmente não estamos conseguindo compartilhar a sua mensagem...
+      </p>
+      <p class="warnings-feed-empty-post" id="warnings-feed-empty-post">
+      Não deixe sua mensagem vazia, compartilhe algo com a gente!
+      </p>
+    </section>
     <div class="informations-user flex">
       <div class="photo-name-post flex">
         <figure class="post-img-user" ><img class="post-img-user" src="${post.imgProfile}" alt="user"></figure>
@@ -44,10 +55,10 @@ export function postElement(post, user, postId) {
 
   const btnLike = timelinePost.querySelector('.post-like');
   const paragraphLikeValue = timelinePost.querySelector('.value-like');
-  const warningsSection = document.querySelector('#warnings-feed');
-  const warningPost = document.querySelector('#warnings-feed-post');
-  const warningEmptyPost = document.querySelector('#warnings-feed-empty-post');
-  const warningGeneral = document.querySelector('#warnings-feed-general');
+  const warningsSection = timelinePost.querySelector('.warnings-feed');
+  const warningPost = timelinePost.querySelector('.warnings-feed-post');
+  const warningEmptyPost = timelinePost.querySelector('.warnings-feed-empty-post');
+  const warningGeneral = timelinePost.querySelector('warnings-feed-general');
 
   let userLike = post.like.filter((people) => people === user.uid);
 
@@ -104,7 +115,7 @@ export function postElement(post, user, postId) {
     comment.day = new Date();
     comment.day.seconds = comment.day.getTime() / 1000;
 
-    if (post.message.trim().length !== 0 && post.message !== ' ' && post.message !== null && post.message !== false) {
+    if (comment.message.trim().length !== 0 && comment.message !== ' ' && comment.message !== null && comment.message !== false) {
       createCommentPost(postId, comment).then(() => {
         toggleMenu(formComment);
         inputComment.value = '';
