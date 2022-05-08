@@ -4,12 +4,25 @@ import {
 
 import { createComments } from './comments.js';
 
-export function postElement(post, user) {
+import { generalErrors, toggleMenu } from './functions-components.js';
+
+export function postElement(post, user, postId) {
   let numberLikes = post.like.length;
   const date = new Date(post.day.seconds * 1000);
   const timelinePost = document.createElement('div');
   timelinePost.setAttribute('class', 'box-post flex column');
   timelinePost.innerHTML = `
+    <section class="warnings-feed" id="warnings-feed">
+      <p class="warnings-feed-general" id="warnings-feed-general">
+      Aconteceu um probleminha... Mianamnida!! "o" Tente novamente mais tarde!
+      </p>
+      <p class="warnings-feed-post" id="warnings-feed-post">
+      Infelizmente não estamos conseguindo compartilhar a sua mensagem...
+      </p>
+      <p class="warnings-feed-empty-post" id="warnings-feed-empty-post">
+      Não deixe sua mensagem vazia, compartilhe algo com a gente!
+      </p>
+    </section>
     <div class="informations-user flex">
       <div class="photo-name-post flex">
         <figure class="post-img-user" ><img class="post-img-user" src="${post.imgProfile}" alt="user"></figure>
@@ -42,6 +55,11 @@ export function postElement(post, user) {
 
   const btnLike = timelinePost.querySelector('.post-like');
   const paragraphLikeValue = timelinePost.querySelector('.value-like');
+  const warningsSection = timelinePost.querySelector('.warnings-feed');
+  const warningPost = timelinePost.querySelector('.warnings-feed-post');
+  const warningEmptyPost = timelinePost.querySelector('.warnings-feed-empty-post');
+  const warningGeneral = timelinePost.querySelector('warnings-feed-general');
+
   let userLike = post.like.filter((people) => people === user.uid);
 
   if (userLike.length !== 0) {
@@ -50,34 +68,22 @@ export function postElement(post, user) {
 
   btnLike.addEventListener('click', () => {
     if (userLike.length === 0) {
-      likePost(post.idPost, user.uid).then(() => {
+      likePost(postId, user.uid).then(() => {
         userLike.push(user.uid);
         numberLikes += 1;
         paragraphLikeValue.textContent = `${numberLikes}`;
         timelinePost.querySelector('.btn-like-post').src = './img/iconeLikePreenchido.png';
       }).catch(() => {
-        document.querySelector('#warnings-feed').style.display = 'block';
-        document.querySelector('#warnings-feed-message').textContent = 'Não estamos conseguindo entrar em contato com a nuvem T-T.';
-
-        setTimeout(() => {
-          document.querySelector('#warnings-feed').style.display = 'none';
-          document.querySelector('#warnings-feed-message').textContent = '';
-        }, 4000);
+        generalErrors(warningGeneral, warningsSection);
       });
     } else {
-      removeLikePost(post.idPost, user.uid).then(() => {
+      removeLikePost(postId, user.uid).then(() => {
         userLike = [];
         numberLikes -= 1;
         paragraphLikeValue.textContent = `${numberLikes}`;
         timelinePost.querySelector('.btn-like-post').src = './img/iconeLike.png';
       }).catch(() => {
-        document.querySelector('#warnings-feed').style.display = 'block';
-        document.querySelector('#warnings-feed-message').textContent = 'Não estamos conseguindo entrar em contato com a nuvem T-T.';
-
-        setTimeout(() => {
-          document.querySelector('#warnings-feed').style.display = 'none';
-          document.querySelector('#warnings-feed-message').textContent = '';
-        }, 4000);
+        generalErrors(warningGeneral, warningsSection);
       });
     }
   });
@@ -90,12 +96,12 @@ export function postElement(post, user) {
   const inputComment = timelinePost.querySelector('.comment-input-value');
 
   commentPost.addEventListener('click', () => {
-    formComment.classList.toggle('active');
+    toggleMenu(formComment);
   });
 
   btnCancelComment.addEventListener('click', (e) => {
     e.preventDefault();
-    formComment.classList.toggle('active');
+    toggleMenu(formComment);
     inputComment.value = '';
   });
 
@@ -108,25 +114,23 @@ export function postElement(post, user) {
     comment.message = inputComment.value;
     comment.day = new Date();
     comment.day.seconds = comment.day.getTime() / 1000;
-    console.log(comment);
-    createCommentPost(post.idPost, comment).then(() => {
-      formComment.classList.toggle('active');
-      inputComment.value = '';
-      divLikePost.appendChild(createComments(comment, user, post.idPost));
-    }).catch(() => {
-      document.querySelector('#warnings-feed').style.display = 'block';
-      document.querySelector('#warnings-feed-message').textContent = 'Infelizmente não estamos conseguindo compartilhar a sua mensagem...';
 
-      setTimeout(() => {
-        document.querySelector('#warnings-feed').style.display = 'none';
-        document.querySelector('#warnings-feed-message').textContent = '';
-      }, 4000);
-    });
+    if (comment.message.trim().length !== 0 && comment.message !== ' ' && comment.message !== null && comment.message !== false) {
+      createCommentPost(postId, comment).then(() => {
+        toggleMenu(formComment);
+        inputComment.value = '';
+        divLikePost.appendChild(createComments(comment, user, postId));
+      }).catch(() => {
+        generalErrors(warningPost, warningsSection);
+      });
+    } else {
+      generalErrors(warningEmptyPost, warningsSection);
+    }
   });
 
   if (post.comment.length !== 0) {
     post.comment.forEach((oneComment) => {
-      divLikePost.appendChild(createComments(oneComment, user, post.idPost));
+      divLikePost.appendChild(createComments(oneComment, user, postId));
     });
   }
 
@@ -143,7 +147,7 @@ export function postElement(post, user) {
     <button class="close-modify btn-edit-style">Cancelar Editar</button>
   </div>
   `;
-  // const modal com template do modal de excluir
+
   const modalDelete = document.createElement('div');
   modalDelete.setAttribute('class', 'modal-delete');
   modalDelete.innerHTML = `
@@ -153,7 +157,7 @@ export function postElement(post, user) {
     <button class="close-delete btn-edit-style">Cancelar</button>
   </div>
   `;
-  // aqui será o menu de configurações que só aparece pro usuário dono do post
+
   if (user.uid === post.userUid) {
     timelinePost.appendChild(modalDelete);
     mainPost.appendChild(modifyForm);
@@ -171,23 +175,23 @@ export function postElement(post, user) {
     </div>  `;
 
     const btnRemove = timelinePost.querySelector('.remove');
+    const btnDeletePost = timelinePost.querySelector('.confirm-delete');
+    const btnCancelDeletePost = timelinePost.querySelector('.close-delete');
     const btnEdit = timelinePost.querySelector('.modify');
     const btnCancelEdit = timelinePost.querySelector('.close-modify');
     const btnConfirmEdit = timelinePost.querySelector('.confirm-modify');
     const inputModify = timelinePost.querySelector('.modify-input-value');
     const btnMenu = timelinePost.querySelector('.meatball-menu');
     const menuEditRemove = timelinePost.querySelector('.menu-edit-remove');
-    const btnDeletePost = timelinePost.querySelector('.confirm-delete');
-    const btnCancelDeletePost = timelinePost.querySelector('.close-delete');
 
     btnMenu.addEventListener('click', () => {
-      menuEditRemove.classList.toggle('active');
+      toggleMenu(menuEditRemove);
     });
 
     btnEdit.addEventListener('click', () => {
       modifyForm.style.display = 'block';
       inputModify.value = timelinePost.querySelector('#post-text').textContent;
-      menuEditRemove.classList.toggle('active');
+      toggleMenu(menuEditRemove);
     });
 
     btnCancelEdit.addEventListener('click', (e) => {
@@ -199,13 +203,13 @@ export function postElement(post, user) {
     btnConfirmEdit.addEventListener('click', (e) => {
       e.preventDefault();
       if (inputModify.value !== post.message && inputModify.value.trim().length !== 0) {
-        editPost(post.idPost, inputModify.value)
+        editPost(postId, inputModify.value)
           .then(() => {
             timelinePost.querySelector('#post-text').textContent = inputModify.value;
             inputModify.value = '';
             modifyForm.style.display = 'none';
             timelinePost.querySelector('#post-modified').textContent = 'Editado';
-          }).catch((error) => console.log(error));
+          }).catch(() => generalErrors(warningGeneral, warningsSection));
       } else {
         inputModify.value = '';
         modifyForm.style.display = 'none';
@@ -214,13 +218,13 @@ export function postElement(post, user) {
 
     btnRemove.addEventListener('click', () => {
       modalDelete.style.display = 'block';
-      menuEditRemove.classList.toggle('active');
+      toggleMenu(menuEditRemove);
     });
     btnDeletePost.addEventListener('click', (e) => {
       e.preventDefault();
-      removePost(post.idPost).then(() => {
+      removePost(postId).then(() => {
         timelinePost.innerHTML = '';
-      }).catch((error) => console.log(error));
+      }).catch(() => generalErrors(warningGeneral, warningsSection));
     });
 
     btnCancelDeletePost.addEventListener('click', (e) => {

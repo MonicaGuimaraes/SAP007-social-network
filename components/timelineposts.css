@@ -61,10 +61,15 @@
 
 .meatball-menu {
   height: 20px;
-  width: 6vw;
+  width: 30px;
   margin-top: 5px;
   background: transparent;
   justify-content: space-between;
+  cursor: pointer;
+}
+
+.meatball-menu:hover {
+  background: var(--blue-opacity)
 }
 
 .meatball-menu span {

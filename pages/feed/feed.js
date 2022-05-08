@@ -1,6 +1,11 @@
 import {
-  createPost, getAllPosts, authLogOut, generateIdPost, // consultDB,
+  createPost, getAllPosts, authLogOut,
 } from './firestore-functions.js';
+
+import {
+  toggleMenu,
+  generalErrors,
+} from '../../components/functions-components.js';
 
 import {
   postElement,
@@ -28,7 +33,15 @@ export const feed = (user) => {
     </header>
     <main class="main-post flex column">
       <section class="warnings-feed" id="warnings-feed">
-        <p class="warnings-feed-message" id="warnings-feed-message"></p>
+        <p class="warnings-feed-post" id="warnings-feed-post">
+        Infelizmente não estamos conseguindo compartilhar a sua mensagem...
+        </p>
+        <p class="warnings-feed-empty-post" id="warnings-feed-empty-post">
+        Não deixe sua mensagem vazia, compartilhe algo com a gente!
+        </p>
+        <p class="warnings-feed-general" id="warnings-feed-general">
+        Aconteceu um probleminha... Mianamnida!! "o" Tente novamente mais tarde!
+        </p>
       </section>
       <section class="section-feed flex column" id="section-feed">
       </section>
@@ -48,12 +61,15 @@ export const feed = (user) => {
   const btnInputPost = timeline.querySelector('#btn-post-input-apear');
   const sectionInput = timeline.querySelector('#section-input-post');
   const nav = timeline.querySelector('#nav-options');
+  const postsElement = timeline.querySelector('#section-feed');
+  const warningsSection = timeline.querySelector('#warnings-feed');
+  const warningPost = timeline.querySelector('#warnings-feed-post');
+  const warningEmptyPost = timeline.querySelector('#warnings-feed-empty-post');
+  const warningGeneral = timeline.querySelector('#warnings-feed-general');
 
-  function toggleMenu() {
-    nav.classList.toggle('active');
-  }
+  btnMobile.addEventListener('click', () => toggleMenu(nav));
 
-  btnMobile.addEventListener('click', toggleMenu);
+  btnInputPost.addEventListener('click', () => toggleMenu(sectionInput));
 
   btnLogOut.addEventListener('click', (e) => {
     e.preventDefault();
@@ -67,18 +83,10 @@ export const feed = (user) => {
     });
   });
 
-  function toggleInput() {
-    sectionInput.classList.toggle('apear');
-  }
-
-  btnInputPost.addEventListener('click', toggleInput);
-
-  const postsElement = timeline.querySelector('#section-feed');
-
   btnPost.addEventListener('click', (event) => {
     event.preventDefault();
     const post = {};
-    post.message = document.querySelector('#input-post').value;
+    post.message = timeline.querySelector('#input-post').value;
     post.day = new Date();
     post.day.seconds = post.day.getTime() / 1000;
     post.edit = '';
@@ -87,65 +95,28 @@ export const feed = (user) => {
     post.imgProfile = user.photoURL;
     post.like = [];
     post.comment = [];
-    post.idPost = 'att';
 
     if (post.message.trim().length !== 0 && post.message !== ' ' && post.message !== null && post.message !== false) {
-      toggleInput();
-      createPost(post).then((response) => {
-        generateIdPost(response.id).then(() => {
-          post.idPost = response.id;
-          const newPostElement = postElement(post, user);
-          postsElement.prepend(newPostElement);
-          timeline.querySelector('#warnings-feed').style.display = 'block';
-          timeline.querySelector('#warnings-feed-message').textContent = 'Sua mensagem foi enviada!';
-
-          setTimeout(() => {
-            timeline.querySelector('#warnings-feed').style.display = 'none';
-            timeline.querySelector('#warnings-feed-message').textContent = '';
-          }, 4000);
-        }).catch(() => {
-            timeline.querySelector('#warnings-feed').style.display = 'block';
-            timeline.querySelector('#warnings-feed-message').textContent = 'Aconteceu um probleminha... Mianamnida!! "o"';
-
-            setTimeout(() => {
-              timeline.querySelector('#warnings-feed').style.display = 'none';
-              timeline.querySelector('#warnings-feed-message').textContent = '';
-            }, 4000);
-          });
+      toggleMenu(sectionInput);
+      createPost(post).then((postOnCloud) => {
+        const newPostElement = postElement(post, user, postOnCloud.id);
+        postsElement.prepend(newPostElement);
       }).catch(() => {
-        timeline.querySelector('#warnings-feed').style.display = 'block';
-        timeline.querySelector('#warnings-feed-message').textContent = 'Infelizmente não estamos conseguindo compartilhar a sua mensagem...';
-
-        setTimeout(() => {
-          timeline.querySelector('#warnings-feed').style.display = 'none';
-          timeline.querySelector('#warnings-feed-message').textContent = '';
-        }, 4000);
+        generalErrors(warningPost, warningsSection);
       });
     } else {
-      timeline.querySelector('#warnings-feed').style.display = 'block';
-      timeline.querySelector('#warnings-feed-message').textContent = 'Não deixe sua mensagem vazia, compartilhe algo com a gente!';
-
-      setTimeout(() => {
-        timeline.querySelector('#warnings-feed').style.display = 'none';
-        timeline.querySelector('#warnings-feed-message').textContent = '';
-      }, 4000);
+      generalErrors(warningEmptyPost, warningsSection);
     }
   });
 
   getAllPosts().then((posts) => {
     posts.docs.forEach((onePost) => {
       const post = onePost.data();
-      const timelinePost = postElement(post, user, timeline);
+      const timelinePost = postElement(post, user, onePost.id);
       postsElement.prepend(timelinePost);
     });
   }).catch(() => {
-    timeline.querySelector('#warnings-feed').style.display = 'block';
-    timeline.querySelector('#warnings-feed-message').textContent = 'Aconteceu um probleminha... Mianamnida!! "o"';
-
-    setTimeout(() => {
-      timeline.querySelector('#warnings-feed').style.display = 'none';
-      timeline.querySelector('#warnings-feed-message').textContent = '';
-    }, 4000);
+    generalErrors(warningGeneral, warningsSection);
   });
 
   return timeline;

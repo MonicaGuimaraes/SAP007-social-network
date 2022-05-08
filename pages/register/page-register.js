@@ -48,7 +48,7 @@ export const createLogin = () => {
             errorRegister.style.display = 'block';
             break;
           case 'auth/invalid-email':
-            errorRegister.innerHTML = 'E-mail inválido';
+            errorRegister.innerHTML = 'E-mail inválido, preencha todos os campos!';
             errorRegister.style.display = 'block';
             break;
           case 'auth/weak-password':
