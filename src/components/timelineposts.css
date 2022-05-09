@@ -198,6 +198,7 @@
   background: transparent;
   z-index: 5;
   display: none;
+  background-color: var(--black-shadow);
 }
 
 .title-modal-delete {

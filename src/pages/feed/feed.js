@@ -99,6 +99,7 @@ export const feed = (user) => {
     if (post.message.trim().length !== 0 && post.message !== ' ' && post.message !== null && post.message !== false) {
       toggleMenu(sectionInput);
       createPost(post).then((postOnCloud) => {
+        timeline.querySelector('#input-post').value = '';
         const newPostElement = postElement(post, user, postOnCloud.id);
         postsElement.prepend(newPostElement);
       }).catch(() => {
