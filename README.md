@@ -8,6 +8,8 @@
 * [4. Desenho da Interface de Usuário (protótipo de baixa fidelidade)](#4-desenho-da-interface-de-usuário-protótipo-de-baixa-fidelidade)
 * [5. Testes de Usabilidade e Entrevista com usuário.](#5-testes-de-usabilidade-e-entrevista-com-usuário)
 * [6. Testes unitários](#6-testes-unitários)
+* [7. Desenvolvedoras](#7-desenvolvedoras)
+* [8. Objetivos de aprendizagem](8-Objetivos-de-aprendizagem)
 
 ## 1. K-Fandom
 
@@ -61,10 +63,7 @@ Criamos o design baseado em respostas de kpoppers, todos responderam que a prime
 ### Logo
 
 <p align="center">
-<svg width="186" height="169" viewBox="0 0 186 169" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M66.6484 168C67.4297 164.745 69.1875 162.987 71.9219 162.727H82.2734V116.242L74.6562 109.406L34.6172 168.195L0.4375 168C1.21875 164.745 2.97656 162.987 5.71094 162.727H8.64062L57.4688 93.5859L26.0234 64.875C20.6849 59.7969 16.6484 56.9974 13.9141 56.4766C12.8724 56.2161 11.8958 56.0859 10.9844 56.0859C7.72917 55.0443 5.97135 53.2865 5.71094 50.8125H41.6484V56.0859H26.0234L82.2734 107.258V56.0859H66.6484V50.8125H121.922V56.0859H106.297V162.727H121.922V168H66.6484Z" fill="#A275E3"/>
-<path d="M150.969 168V162.727H127.727V110.578H166.203V104.719H127.727V56.0859H152.727C163.664 56.0859 171.151 62.401 175.188 75.0312C175.318 75.1615 175.383 75.2917 175.383 75.4219L179.094 88.3125H184.172L183.391 50.8125H88.0781V56.0859H103.703V162.727H88.0781V168H150.969Z" fill="#F8BD0F"/>
-</svg>
+<img src="./src/img/kfandom.svg" alt="k-fandom">
 </p>
 
 ## 5. Testes de Usabilidade e Entrevista com usuário.
@@ -128,7 +127,7 @@ Esse foi o roteiro seguido:
   8-Cometem erros? Em quais partes do processo?
 
 ***
-<a href="https://docs.google.com/document/d/1Hi8fUVCZfOhvY5WAkRd2CVSm5gV4fSdn7Pg4vcY7BJ8/edit?usp=sharing" target="_blank">GitHub</a>
+<a href="https://docs.google.com/document/d/1Hi8fUVCZfOhvY5WAkRd2CVSm5gV4fSdn7Pg4vcY7BJ8/edit?usp=sharing" target="_blank">Testes de Usabilidade e entrevista.</a>
 
 ***
 
