@@ -8,6 +8,8 @@
 * [4. Desenho da Interface de Usuário (protótipo de baixa fidelidade)](#4-desenho-da-interface-de-usuário-protótipo-de-baixa-fidelidade)
 * [5. Testes de Usabilidade e Entrevista com usuário.](#5-testes-de-usabilidade-e-entrevista-com-usuário)
 * [6. Testes unitários](#6-testes-unitários)
+* [7. Desenvolvedoras](#7-desenvolvedoras)
+* [8. Objetivos de aprendizagem](8-Objetivos-de-aprendizagem)
 
 ## 1. K-Fandom
 
@@ -128,7 +130,7 @@ Esse foi o roteiro seguido:
   8-Cometem erros? Em quais partes do processo?
 
 ***
-<a href="https://docs.google.com/document/d/1Hi8fUVCZfOhvY5WAkRd2CVSm5gV4fSdn7Pg4vcY7BJ8/edit?usp=sharing" target="_blank">GitHub</a>
+<a href="https://docs.google.com/document/d/1Hi8fUVCZfOhvY5WAkRd2CVSm5gV4fSdn7Pg4vcY7BJ8/edit?usp=sharing" target="_blank">Testes de Usabilidade e entrevista.</a>
 
 ***
 
