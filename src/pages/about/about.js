@@ -15,8 +15,8 @@ export const pageAbout = () => {
           </figure>
         <section class="about">
           <h1 class="tittle-about">K-Fandom</h1>      
-          <p class="text-about">A K-Fandom é uma Rede Social voltada para kpopers (fãs de Kpop). Sinta-se à vontade para compartilhar tudo relacionado sobre Kpop, falar sobre votações, conhecer amigues e o melhor de tudo dentro de um espaço onde todes curtem o mesmo estilo. Curta mensagens e se conecte nesse meio. 
-          Essa Rede surgiu da ideia de trazer um cantinho seguro onde kpopers podem compartilhar sem se sentirem julgados. Uma grande maioria de kpopers na internet são pessoas mais jovens e estar em um meio onde temos apenas pessoas com interesses em comum e com postagens públicas apenas, evitamos de pessoas más intencionadas de agirem através de mensagens diretas.
+          <p class="text-about">A K-Fandom é uma Rede Social voltada para kpoppers (fãs de Kpop). Sinta-se à vontade para compartilhar tudo relacionado sobre Kpop, falar sobre votações, conhecer amigues e o melhor de tudo dentro de um espaço onde todes curtem o mesmo estilo. Curta mensagens e se conecte nesse meio. 
+          Essa Rede surgiu da ideia de trazer um cantinho seguro onde kpoppers podem compartilhar sem se sentirem julgados. Uma grande maioria de kpoppers na internet são pessoas mais jovens e estar em um meio onde temos apenas pessoas com interesses em comum e com postagens públicas apenas, evitamos de pessoas más intencionadas de agirem através de mensagens diretas.
           Esta é uma rede social em construção e para fins (inicialmente) de estudo. O projeto foi iniciado a partir da ideia da Laboratória para aprender desenvolvimento Web. Mande seu feedback para as desenvolvedoras, se quiser conhece-las só descer mais um pouco!
           </p>
         </section>
@@ -41,7 +41,7 @@ export const pageAbout = () => {
           <section class="information-about-devs">
             <h3> Mônica Guimarães</h3>         
             <a href="https://github.com/MonicaGuimaraes" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/monica-peixoto-guimaraes-v/" target="_blank">LinkedIn</a><p>
+            <a href="https://www.linkedin.com/in/monica-peixoto-guimaraes-v/" target="_blank">LinkedIn</a>
           </section>
         </div>               
         <div class="div-picture-devs"> 

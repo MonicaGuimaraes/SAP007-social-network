@@ -10,10 +10,12 @@
   margin-bottom: 2%
 }
 
+
+
 .form-register {
   background-color: var(--lilac);
   border-radius: 10px;
-  height: 52vh;
+  height: 400px;
   width: 60%;
   text-align: center;
 }
@@ -24,11 +26,48 @@ h1 {
   color: var(--black);
 }
 
+.btn-explanation:hover {
+  background-color: var(--mustard);
+  cursor: pointer;
+}
+
+.explanation {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black-shadow);
+}
+
+.explanation.active {
+  visibility: visible;
+}
+
+.explanation-contents {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  background-color: var(--light-pink);
+  font-weight: bold;
+  padding: 40px;
+  border-radius: 10px;
+  margin: 0 5%;
+}
+
 .create-area {
   background-color: var(--off-white);
   border-radius: 10px;
   font-size: 15px;
-  height: 8vh;
+  height: 50px;
   margin: 10px 10% 0 10%;
   padding-left: 10px;
   width: 80%;
