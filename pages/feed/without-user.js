@@ -3,7 +3,7 @@ export const feedWithoutUser = () => {
   messageWithoutLogin.setAttribute('class', 'message-without-user flex column');
   messageWithoutLogin.innerHTML = `
     <picture>
-      <img class="logo-img-feed-user-message" src="../../img/kfandomKF.svg" alt="Logo">
+      <img class="logo-img-feed-user-message" src="./img/kfandomKF.svg" alt="Logo">
     </picture>
     <p class="without-user">Tente fazer o login para ver o feed!</p>
     <p class="without-user">
