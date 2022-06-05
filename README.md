@@ -37,18 +37,18 @@ MVPS:
   Application (com mais de uma tela/ página) na qual seja possível **ler e escrever dados**.
 
 ## 3. Histórias de usuário
-<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491059617863/usuario1.png" alt="K-Fandom" width="400">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491646808074/usuario3.png" alt="K-Fandom" width="400"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491059617863/usuario1.png" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491646808074/usuario3.png" alt="K-Fandom" width="500"></p>
 
 <p align="center">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491873308723/usuario4.png" alt="K-Fandom" width="400">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491281907752/usuario2.png" alt="K-Fandom" width="400"></p>
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491873308723/usuario4.png" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491281907752/usuario2.png" alt="K-Fandom" width="500"></p>
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492083048529/usuario5.png" alt="K-Fandom" width="400">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492401786931/usuario6.png" alt="K-Fandom" width="400"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492083048529/usuario5.png" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492401786931/usuario6.png" alt="K-Fandom" width="500"></p>
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492653449247/usuario7.png" alt="K-Fandom" width="400">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492863189052/usuario8.png" alt="K-Fandom" width="400"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492653449247/usuario7.png" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492863189052/usuario8.png" alt="K-Fandom" width="500"></p>
 
 ## 4. Desenho da Interface de Usuário (protótipo de alta fidelidade)
 Criamos o design baseado em respostas de kpoppers, todos responderam que a primeira coisa que se lembram ao pensar em KPOP seriam os cabelos coloridos. Por isso trouxemos um layout colorido.
@@ -150,14 +150,14 @@ O objetivo do teste era cobrir as funcionalidades principais de uma Rede Social.
 
 ***
 <h3> Mônica Guimarães</h3>
-<img src="https://github.com/MonicaGuimaraes.png" alt="Anna" width="100">
+<img src="https://github.com/MonicaGuimaraes.png" alt="Mônica" width="100">
 
 <a href="https://github.com/MonicaGuimaraes" target="_blank">GitHub</a>
 <a href="https://www.linkedin.com/in/monica-peixoto-guimaraes-v/" target="_blank">LinkedIn</a>
 
 ***
 <h3> Taize dos Santos</h3>
-<img src="https://github.com/taizesantos.png" alt="Anna" width="100">
+<img src="https://github.com/taizesantos.png" alt="Taize" width="100">
 
 <a href="https://github.com/taizesantos" target="_blank">GitHub</a>
 <a href="https://www.linkedin.com/in/taizeborges/" target="_blank">LinkedIn</a>
