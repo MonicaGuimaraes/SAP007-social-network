@@ -260,3 +260,8 @@ O objetivo do teste era cobrir as funcionalidades principais de uma Rede Social.
 -  Firestore
 
 ***
+### Tests
+
+- Jest
+
+- Mock
