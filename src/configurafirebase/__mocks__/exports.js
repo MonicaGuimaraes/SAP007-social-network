@@ -17,3 +17,5 @@ export const signInWithPopup = jest.fn();
 export const setPersistence = jest.fn();
 export const browserSessionPersistence = jest.fn();
 export const sendPasswordResetEmail = jest.fn();
+export const createUserWithEmailAndPassword = jest.fn();
+export const updateProfile = jest.fn();
