@@ -48,28 +48,28 @@ MVPS:
   Application (com mais de uma tela/ página) na qual seja possível **ler e escrever dados**.
 
 ## 3. Histórias de usuário
-<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491059617863/usuario1.png" alt="K-Fandom" width="500">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491646808074/usuario3.png" alt="K-Fandom" width="500"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491059617863/usuario1.png?ex=662ef01b&is=661c7b1b&hm=c1616dbed130dc9d9ae4606d41c796fed674af5a8e02016ab3010065da2dcee2&" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491646808074/usuario3.png?ex=662ef01b&is=661c7b1b&hm=0fe0f0e96f298734766510a74f1b779a36cf3260d8fa94b3ae5430e907527824&" alt="K-Fandom" width="500"></p>
 
 <p align="center">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491873308723/usuario4.png" alt="K-Fandom" width="500">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491281907752/usuario2.png" alt="K-Fandom" width="500"></p>
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491873308723/usuario4.png?ex=662ef01b&is=661c7b1b&hm=96b05f49eeb9fdd6ee2a6ef51777c3f7f652bc087bd87581765685ab8c8412ae&" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025491281907752/usuario2.png?ex=662ef01b&is=661c7b1b&hm=95a3f3fa173ff3f41b4676866d4bc3c38473db405862a860e798fb5da9028891&" alt="K-Fandom" width="500"></p>
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492083048529/usuario5.png" alt="K-Fandom" width="500">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492401786931/usuario6.png" alt="K-Fandom" width="500"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492083048529/usuario5.png?ex=662ef01b&is=661c7b1b&hm=4623562611021c6b6d839eac16333b6215a0a22a6afa12711a023fd5bb787123&" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492401786931/usuario6.png?ex=662ef01b&is=661c7b1b&hm=af400073ee1c6c15fbe18d72d3d3389622e14f0f00e9f433fc5b8bc91d16825c&" alt="K-Fandom" width="500"></p>
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492653449247/usuario7.png" alt="K-Fandom" width="500">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492863189052/usuario8.png" alt="K-Fandom" width="500"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492653449247/usuario7.png?ex=662ef01b&is=661c7b1b&hm=80aa471fcb3c12e8723be9ba695b951e53ab5282c33a537b9310bc977344cc93&" alt="K-Fandom" width="500">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973025492863189052/usuario8.png?ex=662ef01b&is=661c7b1b&hm=9d727ce8a227b805a410ada2cbf59b3e910b4913e5936ede4d9c04c4aa8de638&" alt="K-Fandom" width="500"></p>
 
 ## 4. Desenho da Interface de Usuário (protótipo de alta fidelidade)
 Criamos o design baseado em respostas de kpoppers, todos responderam que a primeira coisa que se lembram ao pensar em KPOP seriam os cabelos coloridos. Por isso trouxemos um layout colorido.
 
 <p align="center">
-<img src="https://media.discordapp.net/attachments/972803404961304616/972812627937988638/Picsart_22-05-08_07-48-23-947.gif?width=665&height=473" alt="K-Fandom" width="700">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/972812627937988638/Picsart_22-05-08_07-48-23-947.gif?ex=662e29dc&is=661bb4dc&hm=56c7f44eac9db027d2f564d1d722db0c706a7961520d2c9f74c09bf75ccd6e69&" alt="K-Fandom" width="700">
 </p>
 
 <p align="center">
-<img src="https://cdn.discordapp.com/attachments/972803404961304616/973030226185572432/Picsart_22-05-08_22-14-17-946.gif" alt="K-Fandom" width="200">
+<img src="https://cdn.discordapp.com/attachments/972803404961304616/973030226185572432/Picsart_22-05-08_22-14-17-946.gif?ex=662ef483&is=661c7f83&hm=f702db05b8e64f51ee737ae467ebfb6a8febd6d43e3e1c8224842cec12f240fc&" alt="K-Fandom" width="200">
 </p>
 
 ### Logo
@@ -148,7 +148,7 @@ Criamos testes para os arquivos feed.js, timelinepost.js, comments.js, register.
 O objetivo do teste era cobrir as funcionalidades principais de uma Rede Social.
 
 <p align="center">
-<img src="https://media.discordapp.net/attachments/972803404961304616/972805095626506270/testes.png" alt="K-Fandom" width="700">
+<img src="https://media.discordapp.net/attachments/972803404961304616/972805095626506270/testes.png?ex=662e22d8&is=661badd8&hm=e2716058804db43bc80c3f2adda3d64e288119feefe975aab17569b32f239e77&=&format=webp&quality=lossless" alt="K-Fandom" width="700">
 </p>
 
 ## 7. Desenvolvedoras
